@@ -27,7 +27,7 @@ namespace Engine
         {
             r_VehicleTypesList = VehicleUtils.initListFromClassesTypes();
         }
-        private Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
+        public Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
         {
             Vehicle foundVehicle = null;
 
@@ -36,6 +36,7 @@ namespace Engine
                 if (vehicle.LicensePlateNumber == i_LicensePlateNumber)
                 {
                     foundVehicle = vehicle;
+                    break;
                 }
             }
 
@@ -46,7 +47,7 @@ namespace Engine
 
             return foundVehicle;
         }
-
+        
         private Vehicle getOrAddVehicle(Vehicle i_Vehicle)
         {
             Vehicle foundOrAddedVehicle = null;
