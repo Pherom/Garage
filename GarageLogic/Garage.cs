@@ -42,6 +42,7 @@ namespace Engine
                 if (vehicle == i_Vehicle)
                 {
                     foundOrAddedVehicle = vehicle;
+                    break;
                 }
             }
 

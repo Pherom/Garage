@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         internal class VehicleOwnerData
         {
@@ -88,7 +88,7 @@ namespace Engine
             }
         }
 
-        internal abstract class Wheel
+        public abstract class Wheel
         {
             private const string k_ManufacturerNameEmptyExceptionMessage = "Manufacturer name cannot be empty";
             private readonly string m_ManufacturerName;
@@ -160,7 +160,6 @@ namespace Engine
         }
 
         private const string k_ModelNameEmptyExceptionMessage = "Model name cannot be empty";
-        private const string k_LicensePlateNumberEmptyExceptionMessage = "License plate number cannot be empty";
         private const string k_WheelsEmptyExceptionMessage = "Wheels cannot be empty";
         private const string k_WheelsContainsNullExceptionMessage = "Wheels array cannot contain null";
         private readonly string m_ModelName;
@@ -251,15 +250,7 @@ namespace Engine
                 throw new ArgumentException(k_ModelNameEmptyExceptionMessage);
             }
 
-            if (i_LicensePlateNumber == null)
-            {
-                throw new ArgumentNullException(nameof(i_LicensePlateNumber));
-            }
-
-            if (i_LicensePlateNumber == string.Empty)
-            {
-                throw new ArgumentException(k_LicensePlateNumberEmptyExceptionMessage);
-            }
+            VehicleUtils.validateLicensePlate(i_LicensePlateNumber);
 
             if (i_Wheels == null)
             {

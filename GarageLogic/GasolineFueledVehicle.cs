@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    internal abstract class GasolineFueledVehicle : Vehicle
+    public abstract class GasolineFueledVehicle : Vehicle
     {
         public enum eFuelType
         {
@@ -44,13 +44,15 @@ namespace Engine
             }
         }
 
-        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters)
+        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData,
+            Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters)
             : this(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, i_FuelType, i_FuelTankCapacityInLiters, i_FuelTankCapacityInLiters)
         {
 
         }
 
-        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters, float i_CurrentFuelAmountInLiters)
+        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData,
+            Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters, float i_CurrentFuelAmountInLiters)
             : base(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, 0)
         {
             if (i_FuelTankCapacityInLiters <= 0)
