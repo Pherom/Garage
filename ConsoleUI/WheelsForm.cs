@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using Engine;
 
 namespace UI
 {
     internal class WheelsForm
     {
+        private const string k_InputIsNotANumberErrorMessage = "You must enter a number";
         private const string k_NoLicensePlateCreatedErrorMessage = "License plate was not created yet";
-        private string m_Input;
-        private Vehicle.Wheel m_Result = null;
+        private string m_ManufacturerName;
+        private float m_CurrentTirePressure;
+        private List<Vehicle.Wheel> m_Result = null;
 
-        public string Result
+        public List<Vehicle.Wheel> Result
         {
             get
             {
@@ -22,16 +25,30 @@ namespace UI
             }
         }
 
-        public void Display()
+        public void Display(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
+            bool validFloatEntered = false;
             while (m_Result == null)
             {
                 try
                 {
-                    Console.WriteLine("Please enter license plate number:");
-                    m_Input = Console.ReadLine();
-                    VehicleUtils.validateLicensePlate(m_Input);
-                    m_Result = m_Input;
+                    Console.WriteLine("Enter manufacturer name of your wheels:");
+                    m_ManufacturerName = Console.ReadLine();
+                    Console.WriteLine(string.Format("Enter your current tire pressure in your wheels (Maximum is {0}):", i_VehiclePicked.m_MaxTirePressure));
+                    validFloatEntered = float.TryParse(Console.ReadLine(), out m_CurrentTirePressure);
+                    if (validFloatEntered == false)
+                    {
+                        throw new FormatException(k_InputIsNotANumberErrorMessage);
+                    }
+
+                    VehicleUtils.ValidateTirePressureForThisVehicle(m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure);
+                    m_Result = new List<Vehicle.Wheel>(i_VehiclePicked.m_WheelsNumber);
+                    for (int i = 0; i < i_VehiclePicked.m_WheelsNumber; i++)
+                    {
+                        m_Result.Add(new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure));
+                    }
+
+                    Console.WriteLine(string.Format("Your wheel settings successfuly set up to all {0} wheels", i_VehiclePicked.m_WheelsNumber));
                 }
                 catch (Exception ex)
                 {
@@ -40,9 +57,9 @@ namespace UI
             }
         }
 
-        public string DisplayAndGetResult()
+        public List<Vehicle.Wheel> DisplayAndGetResult(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
-            Display();
+            Display(i_VehiclePicked);
             return m_Result;
         }
 

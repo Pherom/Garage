@@ -23,23 +23,28 @@ namespace UI
             }
         }
 
-        public void Display(bool i_IsGasolineFueledVehicle)
+        public void Display(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
             float energy = 0;
             bool validFloatEntered = false;
+            float maxEnergy = getProperMaxBatteryOrFuel(i_VehiclePicked);
             while (m_Result == null)
             {
                 try
                 {
-                    Console.WriteLine(String.Format("Please enter remaining {0} in your vehicle:", i_IsGasolineFueledVehicle == true ? "Fuel" : "Gasoline"));
+                    Console.WriteLine(String.Format("Enter remaining {0} in your {1} (Maximum: {2}):", 
+                        getProperAnnotationBatteryOrFuel(i_VehiclePicked), 
+                        VehicleTypeForm.getProperVehicleName(i_VehiclePicked.m_Name),
+                        maxEnergy));
                     validFloatEntered = float.TryParse(Console.ReadLine(), out m_Input);
                     if (validFloatEntered == false)
                     {
                         throw new FormatException(k_InputIsNotANumberErrorMessage);
                     }
-                    validateEnergyForSpecificVehicle(m_Input, i_IsGasolineFueledVehicle,);
-
+                    VehicleUtils.ValidateEnergyForSpecificVehicle(m_Input, maxEnergy);
                     m_Result = m_Input;
+                    Console.WriteLine(String.Format("Successully picked {0}/{1} {2}", 
+                        m_Result, maxEnergy, getFuelTypeIfUsingFuelAndNotBattery(i_VehiclePicked)));
                 }
                 catch (Exception ex)
                 {
@@ -48,15 +53,40 @@ namespace UI
             }
         }
 
-        public float DisplayAndGetResult(bool i_IsGasolineFueledVehicle)
+        public string getFuelTypeIfUsingFuelAndNotBattery(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
-            Display(i_IsGasolineFueledVehicle);
+            string res;
+            if (i_VehiclePicked.m_IsFueled == true)
+            {
+                res = i_VehiclePicked.m_CurrentFuelType.ToString();
+            }
+            else
+            {
+                res = "battery";
+            }
+
+            return res;
+        }
+
+        public float DisplayAndGetResult(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
+        {
+            Display(i_VehiclePicked);
             return m_Result.Value;
         }
 
         public void ResetForm()
         {
             m_Result = null;
+        }
+
+        private string getProperAnnotationBatteryOrFuel(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
+        {
+            return i_VehiclePicked.m_IsFueled == true ? "Fuel" : "Battery";
+        }
+
+        private float getProperMaxBatteryOrFuel(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
+        {
+            return (i_VehiclePicked.m_IsFueled == true) ? i_VehiclePicked.m_FuelTankCapacityInLiters : i_VehiclePicked.m_MaxBatteryTimeInHours;
         }
     }
 }

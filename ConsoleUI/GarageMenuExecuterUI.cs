@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Engine;
 
 namespace UI
@@ -6,9 +7,11 @@ namespace UI
 
     internal class GarageMenuExecuterUI
     {
+        Garage m_Garage = new Garage();
         VehicleFactory m_VehicleFactory = new VehicleFactory();
         VehicleTypeForm m_VehicleTypeForm = new VehicleTypeForm();
         LicensePlateForm m_LicensePlateForm = new LicensePlateForm();
+        WheelsForm m_WheelsForm = new WheelsForm();
         RemainingEnergyOrFuelForm m_RemainingEnergyOrFuelForm = new RemainingEnergyOrFuelForm();
 
         public void Execute(GarageMenuForm.eGarageMenuOption i_OptionPicked)
@@ -44,17 +47,16 @@ namespace UI
         public void AddNewVehicle()
         {
             float remainingBatteryOrFuelTimeInHours = 0;
-            bool isGasolineFueledVehicle = false;
 
             Console.WriteLine("--Add a new vehicle picked--");
-            m_VehicleTypeForm.DisplayAndGetResult();
+            VehicleFactory.VehicleTypeStruct vehiclePicked = m_VehicleTypeForm.DisplayAndGetResult(m_Garage.VehicleTypesList);
             string licensePlate = m_LicensePlateForm.DisplayAndGetResult();
-            Vehicle.Wheel wheels = m_WheelsForm.DisplayAndGetResult();
-
+            List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
+            remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
             //if (wheels.Size != 16)
             //{
             //    isGasolineFueledVehicle = m_IsElectricCarForm.DisplayAndGetResult();
-            //    remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(isGasolineFueledVehicle);
+            //    
             //}
 
             //i_Wheels
@@ -62,7 +64,7 @@ namespace UI
 
 
             // Call to factory add new vehicle
-            Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);
+            //Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);
             //getOrAddVehicle();
         }
         public void DisplayLicensePlates()

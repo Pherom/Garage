@@ -15,7 +15,7 @@ namespace UI
             {
                 if (m_Result == null)
                 {
-                    throw new NullReferenceException(k_NoLicensePlateCreatedErrorMessage);
+                    throw new NullReferenceException(k_LicensePlateNotSelectedYetErrorMessage);
                 }
 
                 return m_Result;
@@ -30,7 +30,7 @@ namespace UI
                 {
                     Console.WriteLine("Please enter license plate number:");
                     m_Input = Console.ReadLine();
-                    VehicleUtils.validateLicensePlate(m_Input);
+                    VehicleUtils.ValidateLicensePlate(m_Input);
                     m_Result = m_Input;
                 }
                 catch (Exception ex)

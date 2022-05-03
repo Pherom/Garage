@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    internal class Specifications
+    public class Specifications
     {
         private VehicleFactory.eVehicleType m_VehicleType;
         

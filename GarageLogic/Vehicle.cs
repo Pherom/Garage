@@ -8,7 +8,7 @@ namespace Engine
 {
     public abstract class Vehicle
     {
-        internal class VehicleOwnerData
+        public class VehicleOwnerData
         {
             private const string k_NameEmptyExceptionMessage = "Name cannot be empty";
             private const string k_PhoneNumberExceptionMessage = "Phone number cannot be empty";
@@ -88,7 +88,7 @@ namespace Engine
             }
         }
 
-        public abstract class Wheel
+        public class Wheel
         {
             private const string k_ManufacturerNameEmptyExceptionMessage = "Manufacturer name cannot be empty";
             private readonly string m_ManufacturerName;
@@ -119,7 +119,7 @@ namespace Engine
                 }
             }
 
-            protected Wheel(string i_ManufacturerName, float i_MaxTirePressure)
+            public Wheel(string i_ManufacturerName, float i_CurrentTirePressure, float i_MaxTirePressure)
             {
                 if (i_ManufacturerName == null)
                 {
@@ -131,14 +131,11 @@ namespace Engine
                     throw new ArgumentException(k_ManufacturerNameEmptyExceptionMessage);
                 }
 
-                if (i_MaxTirePressure <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(i_MaxTirePressure));
-                }
+                VehicleUtils.ValidateTirePressureForThisVehicle(i_CurrentTirePressure, i_MaxTirePressure);
 
                 m_ManufacturerName = i_ManufacturerName;
+                m_CurrentTirePressure = i_CurrentTirePressure;
                 m_MaxTirePressure = i_MaxTirePressure;
-                m_CurrentTirePressure = m_MaxTirePressure;
             }
 
             public void InflateTire(float i_AddedPressure)
@@ -164,7 +161,7 @@ namespace Engine
         private const string k_WheelsContainsNullExceptionMessage = "Wheels array cannot contain null";
         private readonly string m_ModelName;
         private readonly string m_LicensePlateNumber;
-        private readonly Wheel[] m_Wheels;
+        private readonly List<Wheel> m_Wheels;
         private readonly VehicleOwnerData m_OwnerData;
         private readonly Specifications m_Specifications;
         private float m_CurrentEnergyPercentage;
@@ -232,13 +229,13 @@ namespace Engine
             }
         }
 
-        protected Vehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications)
+        protected Vehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications)
             : this(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, 100)
         {
 
         }
 
-        protected Vehicle(string i_ModelName, string i_LicensePlateNumber, Wheel[] i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_CurrentEnergyPercentage)
+        protected Vehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_CurrentEnergyPercentage)
         {
             if (i_ModelName == null)
             {
@@ -250,14 +247,14 @@ namespace Engine
                 throw new ArgumentException(k_ModelNameEmptyExceptionMessage);
             }
 
-            VehicleUtils.validateLicensePlate(i_LicensePlateNumber);
+            VehicleUtils.ValidateLicensePlate(i_LicensePlateNumber);
 
             if (i_Wheels == null)
             {
                 throw new ArgumentNullException(nameof(i_Wheels));
             }
 
-            else if (i_Wheels.Length == 0)
+            else if (i_Wheels.Count == 0)
             {
                 throw new ArgumentException(k_WheelsEmptyExceptionMessage);
             }

@@ -1,18 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Engine
 {
-    internal class Garage
+    public class Garage
     {
         private const string k_ExpectedGasolineFueledVehicleLicensePlateNumberExceptionMessage = "The provided license plate number does not match with a gasoline fueled vehicle";
         private const string k_ExpectedElectricVehicleLicensePlateNumberExceptionMessage = "The provided license plate number does not match with an electric vehicle";
         private const string k_NonMatchingFuelTypeExceptionMessage = "The provided fuel type does not match the vehicle's required fuel type";
         private readonly List<Vehicle> m_Vehicles = new List<Vehicle>();
+        private readonly List<VehicleFactory.VehicleTypeStruct> r_VehicleTypesList;
 
+        public ReadOnlyCollection<VehicleFactory.VehicleTypeStruct> VehicleTypesList
+        {
+            get
+            {
+                return r_VehicleTypesList.AsReadOnly();
+            }
+        }
+
+        public Garage()
+        {
+            r_VehicleTypesList = VehicleUtils.initListFromClassesTypes();
+        }
         private Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
         {
             Vehicle foundVehicle = null;
