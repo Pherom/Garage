@@ -8,8 +8,8 @@ namespace Engine
 {
     internal class TruckSpecifications : Specifications
     {
-        private readonly bool m_HasRefrigiration;
-        private readonly float m_CargoCapacity;
+        private bool m_HasRefrigiration;
+        private float m_CargoCapacity;
 
         public bool HasRefrigiration
         {
@@ -27,16 +27,29 @@ namespace Engine
             }
         }
 
-        public TruckSpecifications(bool i_HasRefrigiration, float i_CargoCapacity)
-            : base(VehicleFactory.eVehicleType.TRUCK)
+        public override void InitSpecifications(List<object> i_SpecificationAnswers)
         {
-            if (i_CargoCapacity <= 0)
+            if ((float)i_SpecificationAnswers[1] <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(i_CargoCapacity));
+                throw new ArgumentOutOfRangeException();
             }
 
-            m_HasRefrigiration = i_HasRefrigiration;
-            m_CargoCapacity = i_CargoCapacity;
+            m_HasRefrigiration = (bool)i_SpecificationAnswers[0];
+            m_CargoCapacity = (float)i_SpecificationAnswers[1];
         }
+
+        public TruckSpecifications(string i_TypeOfVehicle) : base(i_TypeOfVehicle) { }
+
+        //public TruckSpecifications(bool i_HasRefrigiration, float i_CargoCapacity)
+        //    : base(VehicleFactory.eVehicleType.TRUCK)
+        //{
+        //    if (i_CargoCapacity <= 0)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(i_CargoCapacity));
+        //    }
+
+        //    m_HasRefrigiration = i_HasRefrigiration;
+        //    m_CargoCapacity = i_CargoCapacity;
+        //}
     }
 }

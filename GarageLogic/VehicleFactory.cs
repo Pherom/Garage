@@ -8,12 +8,12 @@ namespace Engine
 {
     public class VehicleFactory
     {
-        public enum eVehicleType
-        {
-            BIKE,
-            CAR,
-            TRUCK
-        }
+        //public enum eVehicleType
+        //{
+        //    BIKE,
+        //    CAR,
+        //    TRUCK
+        //}
 
         public struct SpecificationStruct
         {
@@ -31,6 +31,7 @@ namespace Engine
             public GasolineFueledVehicle.eFuelType m_CurrentFuelType;
             public float m_MaxBatteryTimeInHours;
             public List<SpecificationStruct> m_SpecificationsStruct;
+            public Type m_SpecificationObjectType;
         }
 
         public class VehicleTypes
@@ -61,7 +62,6 @@ namespace Engine
                 public const int k_WheelsNumber = 4;
                 public const float k_MaxTirePressure = 29f;
                 public static readonly Type sr_SpecificationType = typeof(CarSpecifications);
-
 
                 private Car() { }
                 public class Fueled
@@ -95,7 +95,7 @@ namespace Engine
         }
 
 
-        public Vehicle createCar()
+        public Vehicle createVehicle()
         {
             Vehicle res = null;
 

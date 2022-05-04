@@ -13,6 +13,7 @@ namespace UI
         private LicensePlateForm m_LicensePlateForm = new LicensePlateForm();
         private WheelsForm m_WheelsForm = new WheelsForm();
         private RemainingEnergyOrFuelForm m_RemainingEnergyOrFuelForm = new RemainingEnergyOrFuelForm();
+        private SpecificationForm m_SpecificationForm = new SpecificationForm();
         private OwnerDataForm m_OwnerDataForm = new OwnerDataForm();
         private EnumForm m_EnumForm = new EnumForm();
 
@@ -64,7 +65,7 @@ namespace UI
             {
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
                 remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
-                List<object> specifications = VehicleUtilsUI.readAndAskUserForInputFromSpecificationsList(vehiclePicked.m_SpecificationsStruct);
+                Specifications specifications = m_SpecificationForm.DisplayAndGetResult(vehiclePicked);
                 Vehicle.VehicleOwnerData ownerData = m_OwnerDataForm.DisplayAndGetResult();
                 string messageToShowForRepairStatusEnumForm = "Enter a number to select repair status:";
                 Vehicle.eRepairStatus m_RepairStatus = (Vehicle.eRepairStatus)m_EnumForm.DisplayAndGetResult(messageToShowForRepairStatusEnumForm, typeof(Vehicle.eRepairStatus).GetEnumValues());

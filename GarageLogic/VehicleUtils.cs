@@ -98,7 +98,8 @@ namespace Engine
                         }
                         else if (currentField.FieldType.Name == "Type")
                         {
-                            specificVehicle.m_SpecificationsStruct = getSpecificationsFieldsListBasedOnTypeOfVehicle((Type)valueOfProperty);
+                            specificVehicle.m_SpecificationObjectType = (Type)valueOfProperty;
+                            specificVehicle.m_SpecificationsStruct = getSpecificationsFieldsListBasedOnTypeOfVehicle(specificVehicle.m_SpecificationObjectType);
                         }
                     }
 

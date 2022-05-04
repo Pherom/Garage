@@ -16,8 +16,8 @@ namespace Engine
             BLUE
         }
 
-        private readonly eColor m_Color;
-        private readonly int m_DoorCount;
+        private eColor m_Color;
+        private int m_DoorCount;
 
         public eColor Color
         {
@@ -35,35 +35,29 @@ namespace Engine
             }
         }
 
-        public CarSpecifications(eColor i_Color, int i_DoorCount)
-            : base(VehicleFactory.eVehicleType.CAR)
+        public override void InitSpecifications(List<object> i_SpecificationAnswers)
         {
-            if (i_DoorCount < 2 || i_DoorCount > 5)
+            if ((int)i_SpecificationAnswers[1] < 2 || (int)i_SpecificationAnswers[1] > 5)
             {
-                throw new ArgumentOutOfRangeException(nameof(i_DoorCount));
+                throw new ValueOutOfRangeException(2, 5);
             }
 
-            m_Color = i_Color;
-            m_DoorCount = i_DoorCount;
+            m_Color = (eColor)i_SpecificationAnswers[0];
+            m_DoorCount = (int)i_SpecificationAnswers[1];
         }
 
-        public struct SpecificationStruct
-        {
-            public string m_NameOfField;
-            public Type m_ValueTypeName;
-            //public object m_Value;
-        }
+        public CarSpecifications(string i_TypeOfVehicle) : base(i_TypeOfVehicle) { }
 
-        //public List<object> getSpecificationsList()
+        //public CarSpecifications(eColor i_Color, int i_DoorCount)
+        //    : base(VehicleFactory.eVehicleType.CAR)
         //{
-        //    List<SpecificationStruct> res = new List<SpecificationStruct>(2); // Number of specifications
+        //    if (i_DoorCount < 2 || i_DoorCount > 5)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(i_DoorCount));
+        //    }
 
-        //    //SpecificationStruct currentSpecification = new SpecificationStruct();
-        //    //currentSpecification.m_NameOfField = "m_Color";
-        //    //= typeof(SomeTypeName);
-        //    //res.Add(currentSpecification);
-
-        //    return res;
+        //    m_Color = i_Color;
+        //    m_DoorCount = i_DoorCount;
         //}
     }
 }

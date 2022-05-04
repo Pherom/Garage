@@ -16,8 +16,8 @@ namespace Engine
             B1
         }
 
-        private readonly eLicenseType m_LicenseType;
-        private readonly int m_EngineCapacityInCC;
+        private eLicenseType m_LicenseType;
+        private int m_EngineCapacityInCC;
 
         public eLicenseType LicenseType
         {
@@ -35,16 +35,29 @@ namespace Engine
             }
         }
 
-        public BikeSpecifications(eLicenseType i_LicenseType, int i_EngineCapacityInCC)
-            : base(VehicleFactory.eVehicleType.BIKE)
+        public override void InitSpecifications(List<object> i_SpecificationAnswers)
         {
-            if (i_EngineCapacityInCC <= 0)
+            if ((int)i_SpecificationAnswers[1] <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(i_EngineCapacityInCC));
+                throw new ArgumentOutOfRangeException();
             }
 
-            m_LicenseType = i_LicenseType;
-            m_EngineCapacityInCC = i_EngineCapacityInCC;
+            m_LicenseType = (eLicenseType)i_SpecificationAnswers[0];
+            m_EngineCapacityInCC = (int)i_SpecificationAnswers[1];
         }
+
+        public BikeSpecifications(string i_TypeOfVehicle) : base(i_TypeOfVehicle) { }
+
+        //public BikeSpecifications(eLicenseType i_LicenseType, int i_EngineCapacityInCC)
+        //    : base(VehicleFactory.eVehicleType.BIKE)
+        //{
+        //    if (i_EngineCapacityInCC <= 0)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(i_EngineCapacityInCC));
+        //    }
+
+        //    m_LicenseType = (eLicenseType)i_LicenseType;
+        //    m_EngineCapacityInCC = (int)i_EngineCapacityInCC;
+        //}
     }
 }

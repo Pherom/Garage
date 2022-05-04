@@ -6,21 +6,36 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Specifications
+    public abstract class Specifications
     {
-        private VehicleFactory.eVehicleType m_VehicleType;
-        
-        public VehicleFactory.eVehicleType VehicleType
+
+        private string m_VehicleType;
+        public string VehicleType
         {
-            get
+            get 
             {
-                return m_VehicleType;
+                return m_VehicleType; 
             }
         }
 
-        public Specifications(VehicleFactory.eVehicleType i_VehicleType)
+        public Specifications(string i_VehicleType)
         {
             m_VehicleType = i_VehicleType;
         }
+        public abstract void InitSpecifications(List<object> i_SpecificationAnswers);
+
+        //private VehicleFactory.eVehicleType m_VehicleType;
+        //public VehicleFactory.eVehicleType VehicleType
+        //{
+        //    get
+        //    {
+        //        return m_VehicleType;
+        //    }
+        //}
+
+        //public Specifications(VehicleFactory.eVehicleType i_VehicleType)
+        //{
+        //    m_VehicleType = i_VehicleType;
+        //}
     }
 }

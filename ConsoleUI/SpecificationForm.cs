@@ -1,13 +1,57 @@
 ﻿using System;
 using Engine;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace UI
 {
-    internal class VehicleUtilsUI
+    internal class SpecificationForm
     {
-        public static EnumForm enumForm = new EnumForm();
+        private static EnumForm m_EnumForm = new EnumForm();
+        private const string k_SpecificationsNotFilledYetErrorMessage = "Specifications are not filled yet";
+        private string m_Input;
+        private Specifications m_Result = null;
+
+        public Specifications Result
+        {
+            get
+            {
+                if (m_Result == null)
+                {
+                    throw new NullReferenceException(k_SpecificationsNotFilledYetErrorMessage);
+                }
+
+                return m_Result;
+            }
+        }
+
+        public void Display(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
+        {
+            while (m_Result == null)
+            {
+                try
+                {
+                    List<object> specificationsAnswers = readAndAskUserForInputFromSpecificationsList(i_VehiclePicked.m_SpecificationsStruct);
+                    Specifications specifications = (Specifications)Activator.CreateInstance(i_VehiclePicked.m_SpecificationObjectType, i_VehiclePicked.m_Name);
+                    specifications.InitSpecifications(specificationsAnswers);
+                    m_Result = specifications;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        public Specifications DisplayAndGetResult(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
+        {
+            Display(i_VehiclePicked);
+            return m_Result;
+        }
+
+        public void ResetForm()
+        {
+            m_Result = null;
+        }
 
         // The paramater i_SpecificationsList is from the problem world and it contains in each index the FieldName that needs to be field and its type
         // Creating list of objects from the solution world, so that's why both lists are same size
@@ -41,10 +85,9 @@ namespace UI
                 {
                     Array arrayOfEnumValues = specification.m_ValueType.GetEnumValues();
                     string messageToShowForEnumForm = String.Format("Enter a number to select {0}", specification.m_NameOfField);
-                    res.Add(enumForm.DisplayAndGetResult(messageToShowForEnumForm, arrayOfEnumValues));
-                    enumForm.ResetForm();
+                    res.Add(m_EnumForm.DisplayAndGetResult(messageToShowForEnumForm, arrayOfEnumValues));
+                    m_EnumForm.ResetForm();
                 }
-                
             }
 
             return res;
