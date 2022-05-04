@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumForm.cs" />
-    <Compile Include="GarageMenuExecuterUI.cs" />
+    <Compile Include="GarageMenuExecutorUI.cs" />
     <Compile Include="GarageMenuForm.cs" />
     <Compile Include="LicensePlateForm.cs" />
     <Compile Include="OwnerDataForm.cs" />

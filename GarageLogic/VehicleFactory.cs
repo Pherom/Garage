@@ -95,13 +95,25 @@ namespace GarageLogic
         }
 
 
-        public Vehicle createVehicle()
+        public Vehicle createVehicle(VehicleFactory.VehicleTypeStruct i_VehiclePicked, string i_ModelName,
+            string i_LicensePlateNumber, List<Vehicle.Wheel> i_Wheels, Vehicle.VehicleOwnerData i_OwnerData,
+            Specifications i_Specifications, float i_RemainingBatteryOrFuelTimeInHours)
         {
             Vehicle res = null;
-
+            if (i_VehiclePicked.m_IsFueled == true)
+            {
+                res = new GasolineFueledVehicle(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications,
+                    i_VehiclePicked.m_CurrentFuelType, i_VehiclePicked.m_FuelTankCapacityInLiters, i_RemainingBatteryOrFuelTimeInHours);
+            }
+            else
+            {
+                res = new ElectricVehicle(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications,
+                    i_VehiclePicked.m_MaxBatteryTimeInHours, i_RemainingBatteryOrFuelTimeInHours);
+            }
 
             return res;
         }
+
     }
 }
 

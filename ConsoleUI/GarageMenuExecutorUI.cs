@@ -50,6 +50,7 @@ namespace UI
         public void AddNewVehicle()
         {
             float remainingBatteryOrFuelTimeInHours = 0;
+            string modelName;
             Console.WriteLine("--Add a new vehicle picked--");
             VehicleFactory.VehicleTypeStruct vehiclePicked = m_VehicleTypeForm.DisplayAndGetResult(m_Garage.VehicleTypesList);
             string licensePlate = m_LicensePlateForm.DisplayAndGetResult();
@@ -64,15 +65,15 @@ namespace UI
             catch (Exception ex)
             {
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
+                modelName = Console.ReadLine();
                 remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
                 Specifications specifications = m_SpecificationForm.DisplayAndGetResult(vehiclePicked);
                 Vehicle.VehicleOwnerData ownerData = m_OwnerDataForm.DisplayAndGetResult();
                 string messageToShowForRepairStatusEnumForm = "Enter a number to select repair status:";
-                Vehicle.eRepairStatus m_RepairStatus = (Vehicle.eRepairStatus)m_EnumForm.DisplayAndGetResult(messageToShowForRepairStatusEnumForm, typeof(Vehicle.eRepairStatus).GetEnumValues());
-
-
-                int x = 5;
                 // Call to factory add new vehicle
+                m_VehicleFactory.createVehicle(vehiclePicked, modelName, licensePlate, wheels, ownerData, specifications, remainingBatteryOrFuelTimeInHours);
+
+                 int x = 5;
                 //Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);
                 //getOrAddVehicle();
             }
@@ -81,7 +82,7 @@ namespace UI
         {
             Console.WriteLine("-- Display license plates option picked --");
             Console.WriteLine("List of all license plates of vehicles currently in the garage:");
-            for(string licensePlateNumber in m_Garage.GetLicensePlateNumbers())
+            foreach (string licensePlateNumber in m_Garage.GetLicensePlateNumbers())
             {
                 Console.WriteLine(licensePlateNumber);
             }
