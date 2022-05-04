@@ -78,7 +78,7 @@ namespace UI
         {
             float remainingBatteryOrFuelTimeInHours = 0;
             string modelName;
-            Console.WriteLine("--Add a new vehicle picked--");
+            Console.WriteLine("--Add a new vehicle option picked--");
             VehicleFactory.VehicleTypeStruct vehiclePicked = m_VehicleTypeForm.DisplayAndGetResult(m_Garage.VehicleTypesList);
             string licensePlate = m_LicensePlateForm.DisplayAndGetResult();
 
@@ -89,7 +89,7 @@ namespace UI
                     foundVehicle.ModelName, Environment.NewLine);
                 m_Garage.SetVehicleRepairStatus(licensePlate, Vehicle.eRepairStatus.IN_PROGRESS);
             }
-            catch (Exception ex)
+            catch
             {
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
                 Console.WriteLine("Enter model name:");
@@ -217,9 +217,9 @@ Energy:
 {4}
 Specifications:
 {5}
-"), foundVehicle.ModelName, foundVehicle.OwnerData.Name, foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
+", foundVehicle.ModelName, foundVehicle.OwnerData.Name, foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
 getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehicle)
-);
+));
                 //foundVehicle.Specifications.VehicleType
             }
             catch (Exception ex)
@@ -230,7 +230,13 @@ getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehic
 
         private string getWheelsInfoAsString(Vehicle i_Vehicle)
         {
-            return String.Empty;
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 1; i <= i_Vehicle.Wheels.Count; i++)
+            {
+                stringBuilder.Append(String.Format("{1}Wheel #{0}:{1}Current tire pressure: {2}{1}Manufacturer: {3}",
+                    i, Environment.NewLine, i_Vehicle.Wheels[i - 1].CurrentTirePressure, i_Vehicle.Wheels[i - 1].ManufacturerName));
+            }
+            return stringBuilder.ToString();
         }
         private string getEnergySourceInfoAsString(Vehicle i_Vehicle)
         {

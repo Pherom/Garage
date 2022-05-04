@@ -6,7 +6,7 @@ namespace GarageLogic
 {
     public class VehicleUtils
     {
-        private const string k_InvalidLicensePlateExceptionMessage = "License plate number must consists of 7-8 numbers only";
+        private const string k_InvalidLicensePlateExceptionMessage = "License plate number must consist of 7 - 8 digits only";
         private VehicleUtils() { }
         public static void ValidateLicensePlate(string i_LicensePlateNumber)
         {

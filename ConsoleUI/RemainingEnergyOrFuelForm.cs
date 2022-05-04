@@ -25,7 +25,6 @@ namespace UI
 
         public void Display(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
-            float energy = 0;
             bool validFloatEntered = false;
             float maxEnergy = getProperMaxBatteryOrFuel(i_VehiclePicked);
             while (m_Result == null)

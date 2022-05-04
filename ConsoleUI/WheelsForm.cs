@@ -36,9 +36,9 @@ namespace UI
                 try
                 {
                     Console.WriteLine(string.Format("Wheel #{0}:", counterSuccessfullyLoadedWheels + 1));
-                    Console.WriteLine("Enter manufacturer name of your wheel:");
+                    Console.WriteLine("Enter wheel manufacturer name:");
                     m_ManufacturerName = Console.ReadLine();
-                    Console.WriteLine(string.Format("Enter your current tire pressure in your wheels (Maximum is {0}):", i_VehiclePicked.m_MaxTirePressure));
+                    Console.WriteLine(string.Format("Enter wheel's current tire pressure (maximum: {0}):", i_VehiclePicked.m_MaxTirePressure));
                     validFloatEntered = float.TryParse(Console.ReadLine(), out m_CurrentTirePressure);
                     if (validFloatEntered == false)
                     {
@@ -48,7 +48,7 @@ namespace UI
                     VehicleUtils.ValidateTirePressureForThisVehicle(m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure);
                     if (counterSuccessfullyLoadedWheels == 0)
                     {
-                        bool wantsToApplyAllInfoOnAllWheels = m_YesNoForm.DisplayAndGetResult("Do you want to apply this wheel information to all wheels? (y/n)");
+                        bool wantsToApplyAllInfoOnAllWheels = m_YesNoForm.DisplayAndGetResult("Would you like to apply this data to all wheels? (y/n)");
                         if (wantsToApplyAllInfoOnAllWheels == true)
                         {
                             for (int i = 0; i < i_VehiclePicked.m_WheelsNumber; i++)
@@ -57,16 +57,16 @@ namespace UI
                                 counterSuccessfullyLoadedWheels++;
                             }
 
-                            Console.WriteLine(string.Format("Your wheel settings successfuly set up to all {0} wheels", i_VehiclePicked.m_WheelsNumber));
+                            Console.WriteLine(string.Format("Wheel data successfuly applied to all {0} wheels", i_VehiclePicked.m_WheelsNumber));
                         }
                         else
                         {
-                            m_Result[counterSuccessfullyLoadedWheels] = new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure);
+                            m_Result.Add(new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure));
                         }
                     }
                     else
                     {
-                        m_Result[counterSuccessfullyLoadedWheels] = new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure);
+                        m_Result.Add(new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure));
                     }
                     counterSuccessfullyLoadedWheels++;
                 }

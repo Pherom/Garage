@@ -197,6 +197,14 @@ namespace GarageLogic
             }
         }
 
+        public List<Wheel> Wheels
+        {
+            get
+            {
+                return m_Wheels;
+            }
+        }
+
         public float CurrentEnergyPercentage
         {
             get
