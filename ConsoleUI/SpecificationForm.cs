@@ -31,7 +31,7 @@ namespace UI
                 try
                 {
                     List<object> specificationsAnswers = readAndAskUserForInputFromSpecificationsList(i_VehiclePicked.m_SpecificationsStruct);
-                    Specifications specifications = (Specifications)Activator.CreateInstance(i_VehiclePicked.m_SpecificationObjectType, i_VehiclePicked.m_Name);
+                    Specifications specifications = (Specifications)Activator.CreateInstance(i_VehiclePicked.m_SpecificationObjectType, VehicleTypeForm.getProperVehicleName(i_VehiclePicked.m_Name));
                     specifications.InitSpecifications(specificationsAnswers);
                     m_Result = specifications;
                 }
