@@ -8,7 +8,7 @@ namespace UI
     {
         private const string k_InputIsNotANumberErrorMessage = "You must enter a number";
         private const string k_NoLicensePlateCreatedErrorMessage = "License plate was not created yet";
-        private string m_ManufacturerName;
+        private string m_ManufacturerName = String.Empty;
         private float m_CurrentTirePressure;
         private List<Vehicle.Wheel> m_Result = null;
 
@@ -32,8 +32,11 @@ namespace UI
             {
                 try
                 {
-                    Console.WriteLine("Enter manufacturer name of your wheels:");
-                    m_ManufacturerName = Console.ReadLine();
+                    if (m_ManufacturerName == String.Empty)
+                    {
+                        Console.WriteLine("Enter manufacturer name of your wheels:");
+                        m_ManufacturerName = Console.ReadLine();
+                    }
                     Console.WriteLine(string.Format("Enter your current tire pressure in your wheels (Maximum is {0}):", i_VehiclePicked.m_MaxTirePressure));
                     validFloatEntered = float.TryParse(Console.ReadLine(), out m_CurrentTirePressure);
                     if (validFloatEntered == false)

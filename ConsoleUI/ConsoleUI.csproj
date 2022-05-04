@@ -48,6 +48,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="RemainingEnergyOrFuelForm.cs" />
     <Compile Include="VehicleTypeForm.cs" />
+    <Compile Include="VehicleUtilsUI.cs" />
     <Compile Include="WheelsForm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

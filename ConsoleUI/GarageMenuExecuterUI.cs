@@ -47,8 +47,6 @@ namespace UI
         public void AddNewVehicle()
         {
             float remainingBatteryOrFuelTimeInHours = 0;
-            bool isLocatedInGarageAlready = false;
-
             Console.WriteLine("--Add a new vehicle picked--");
             VehicleFactory.VehicleTypeStruct vehiclePicked = m_VehicleTypeForm.DisplayAndGetResult(m_Garage.VehicleTypesList);
             string licensePlate = m_LicensePlateForm.DisplayAndGetResult();
@@ -56,14 +54,17 @@ namespace UI
             try
             {
                 Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlate);
-                Console.WriteLine(String.Format("A {0} was found with this license plate number: {1}"), 
-                    foundVehicle.Specifications.VehicleType, foundVehicle.ModelName);
+                Console.WriteLine(String.Format("A {0} was found with this license plate number: {1}{2}Changed this vehicle status to repair in progress"), 
+                    foundVehicle.Specifications.VehicleType, foundVehicle.ModelName, Environment.NewLine);
                 m_Garage.SetVehicleRepairStatus(licensePlate, Vehicle.eRepairStatus.IN_PROGRESS);
             }
             catch (Exception ex)
             {
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
-                //remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
+                remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
+                List<object> specifications = VehicleUtilsUI.readAndAskUserForInputFromSpecificationsList(vehiclePicked.m_SpecificationsStruct);
+                int x = 5;
+
 
                 // Call to factory add new vehicle
                 //Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);

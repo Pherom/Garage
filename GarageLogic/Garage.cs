@@ -25,7 +25,7 @@ namespace Engine
 
         public Garage()
         {
-            r_VehicleTypesList = VehicleUtils.initListFromClassesTypes();
+            r_VehicleTypesList = VehicleUtils.initVehicleTypeListFromClassVehicleTypes();
         }
         public Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
         {

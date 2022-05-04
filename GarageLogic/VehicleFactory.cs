@@ -15,6 +15,12 @@ namespace Engine
             TRUCK
         }
 
+        public struct SpecificationStruct
+        {
+            public string m_NameOfField;
+            public Type m_ValueType;
+        }
+
         public struct VehicleTypeStruct
         {
             public string m_Name;
@@ -24,6 +30,7 @@ namespace Engine
             public float m_FuelTankCapacityInLiters;
             public GasolineFueledVehicle.eFuelType m_CurrentFuelType;
             public float m_MaxBatteryTimeInHours;
+            public List<SpecificationStruct> m_SpecificationsStruct;
         }
 
         public class VehicleTypes
@@ -32,8 +39,11 @@ namespace Engine
             public class Motorbike
             {
                 public const int k_WheelsNumber = 2;
-                public const float m_MaxTirePressure = 31f;
+                public const float k_MaxTirePressure = 31f;
+                public static readonly Type sr_SpecificationType = typeof(BikeSpecifications);
+
                 private Motorbike() { }
+
                 public class Fueled
                 {
                     public const GasolineFueledVehicle.eFuelType k_CurrentFuelType = GasolineFueledVehicle.eFuelType.OCTAN98;
@@ -49,7 +59,10 @@ namespace Engine
             public class Car
             {
                 public const int k_WheelsNumber = 4;
-                public const float m_MaxTirePressure = 29f;
+                public const float k_MaxTirePressure = 29f;
+                public static readonly Type sr_SpecificationType = typeof(CarSpecifications);
+
+
                 private Car() { }
                 public class Fueled
                 {
@@ -66,14 +79,16 @@ namespace Engine
             }
             public class Truck
             {
-                private int m_WheelsNumber = 4;
-                private float m_MaxTirePressure = 29f;
+                public const int k_WheelsNumber = 4;
+                public const float k_MaxTirePressure = 29f;
+                public static readonly Type sr_SpecificationType = typeof(TruckSpecifications);
+
 
                 private Truck() { }
                 public class Fueled
                 {
-                    private const GasolineFueledVehicle.eFuelType m_CurrentFuelType = GasolineFueledVehicle.eFuelType.SOLER;
-                    private const float m_FuelTankCapacityInLiters = 120f;
+                    public const GasolineFueledVehicle.eFuelType m_CurrentFuelType = GasolineFueledVehicle.eFuelType.SOLER;
+                    public const float m_FuelTankCapacityInLiters = 120f;
                     private Fueled() { }
                 }
             }

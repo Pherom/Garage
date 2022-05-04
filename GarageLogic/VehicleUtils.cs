@@ -50,7 +50,23 @@ namespace Engine
             ValidateValueIsInRange(i_CurrentEnergy, i_MaxEnergy);
         }
 
-        public static List<VehicleFactory.VehicleTypeStruct> initListFromClassesTypes()
+        public static List<VehicleFactory.SpecificationStruct> getSpecificationsFieldsListBasedOnTypeOfVehicle(Type i_TypeOfSpecificSpecifiationVehicle)
+        {
+            FieldInfo[] fieldsList = (FieldInfo[])i_TypeOfSpecificSpecifiationVehicle.GetRuntimeFields();
+            List<VehicleFactory.SpecificationStruct> res = new List<VehicleFactory.SpecificationStruct>(fieldsList.Length); // Number of specifications
+            VehicleFactory.SpecificationStruct currentSpecification;
+            foreach (FieldInfo currentField in fieldsList)
+            {
+                currentSpecification = new VehicleFactory.SpecificationStruct();
+                currentSpecification.m_NameOfField = currentField.Name.Substring(2, currentField.Name.Length - 2);
+                currentSpecification.m_ValueType = currentField.FieldType;
+                res.Add(currentSpecification);
+            }
+
+            return res;
+        }
+
+        public static List<VehicleFactory.VehicleTypeStruct> initVehicleTypeListFromClassVehicleTypes()
         {
             List<VehicleFactory.VehicleTypeStruct> typeOfVehiclesList = new List<VehicleFactory.VehicleTypeStruct>();
             VehicleFactory.VehicleTypeStruct specificVehicle;
@@ -80,6 +96,10 @@ namespace Engine
                         {
                             myFieldInfo.SetValueDirect(__makeref(specificVehicle), float.Parse(valueOfProperty.ToString()));
                         }
+                        else if (currentField.FieldType.Name == "Type")
+                        {
+                            specificVehicle.m_SpecificationsStruct = getSpecificationsFieldsListBasedOnTypeOfVehicle((Type)valueOfProperty);
+                        }
                     }
 
                     // Adding the fields inside the Fueled/Electric class
@@ -103,7 +123,6 @@ namespace Engine
                     typeOfVehiclesList.Add(specificVehicle);
                 }
             }
-
 
             return typeOfVehiclesList;
             //foreach (VehicleFactory.VehicleTypeStruct s in typeOfVehiclesList)

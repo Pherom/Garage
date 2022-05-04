@@ -46,5 +46,24 @@ namespace Engine
             m_Color = i_Color;
             m_DoorCount = i_DoorCount;
         }
+
+        public struct SpecificationStruct
+        {
+            public string m_NameOfField;
+            public Type m_ValueTypeName;
+            //public object m_Value;
+        }
+
+        //public List<object> getSpecificationsList()
+        //{
+        //    List<SpecificationStruct> res = new List<SpecificationStruct>(2); // Number of specifications
+
+        //    //SpecificationStruct currentSpecification = new SpecificationStruct();
+        //    //currentSpecification.m_NameOfField = "m_Color";
+        //    //= typeof(SomeTypeName);
+        //    //res.Add(currentSpecification);
+
+        //    return res;
+        //}
     }
 }
