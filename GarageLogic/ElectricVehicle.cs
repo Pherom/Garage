@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal class ElectricVehicle : Vehicle
+    public class ElectricVehicle : Vehicle
     {
         private readonly float m_MaxBatteryTimeInHours;
         private float m_RemainingBatteryTimeInHours;
@@ -16,6 +16,14 @@ namespace GarageLogic
             get
             {
                 return m_MaxBatteryTimeInHours;
+            }
+        }
+
+        public float RemainingBatteryTimeInHours
+        {
+            get
+            {
+                return m_RemainingBatteryTimeInHours;
             }
         }
 
@@ -37,14 +45,15 @@ namespace GarageLogic
             Charge(i_RemainingBatteryTimeInHours);
         }
 
-        public void Charge(float i_AddedBatteryTimeInHours)
+        public void Charge(float i_AddedBatteryTimeInMinutes)
         {
-            if (i_AddedBatteryTimeInHours < 0 || i_AddedBatteryTimeInHours > m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours)
+            float addedBatteryTimeInHours = (i_AddedBatteryTimeInMinutes / 60);
+            if (addedBatteryTimeInHours < 0 || addedBatteryTimeInHours > m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours)
             {
                 throw new ValueOutOfRangeException(0, m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours);
             }
 
-            m_RemainingBatteryTimeInHours += i_AddedBatteryTimeInHours;
+            m_RemainingBatteryTimeInHours += addedBatteryTimeInHours;
             CurrentEnergyPercentage = (m_RemainingBatteryTimeInHours / m_MaxBatteryTimeInHours) * 100;
         }
     }

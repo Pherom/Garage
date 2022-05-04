@@ -11,8 +11,8 @@ namespace UI
             ADD_NEW_VEHICLE = k_MinGarageMenuOption,
             DISPLAY_LICENSE_PLATES_OF_ALL_VEHICLES,
             CHANGE_REPAIR_STATUS_OF_SPECIFIC_VEHICLE,
-            FUEL_VEHICLE,
             INFLATE_VEHICLE_TIRES_TO_MAX,
+            FUEL_VEHICLE,
             CHARGE_ELECTRIC_VEHICLE,
             DISPLAY_ALL_INFORMATION_ABOUT_VEHICLE,
             EXIT

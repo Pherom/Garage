@@ -52,6 +52,7 @@
     <Compile Include="VehicleTypeForm.cs" />
     <Compile Include="SpecificationForm.cs" />
     <Compile Include="WheelsForm.cs" />
+    <Compile Include="YesNoForm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,6 @@ namespace GarageLogic
 {
     public abstract class Specifications
     {
-
         private string m_VehicleType;
         public string VehicleType
         {

@@ -137,7 +137,7 @@ namespace GarageLogic
 
             gasolineFueledVehicle = getVehicleByLicensePlateNumber(i_LicensePlateNumber) as GasolineFueledVehicle;
 
-            if (gasolineFueledVehicle == null)
+            if (ReferenceEquals(gasolineFueledVehicle, null))
             {
                 throw new ArgumentException(k_ExpectedGasolineFueledVehicleLicensePlateNumberExceptionMessage);
             }
@@ -161,7 +161,7 @@ namespace GarageLogic
 
             electricVehicle = getVehicleByLicensePlateNumber(i_LicensePlateNumber) as ElectricVehicle;
 
-            if (electricVehicle == null)
+            if (ReferenceEquals(electricVehicle, null))
             {
                 throw new ArgumentException(k_ExpectedElectricVehicleLicensePlateNumberExceptionMessage);
             }

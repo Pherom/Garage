@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using GarageLogic;
+using System.Reflection;
+using System.Text;
 
 namespace UI
 {           
@@ -17,6 +19,7 @@ namespace UI
         private SpecificationForm m_SpecificationForm = new SpecificationForm();
         private OwnerDataForm m_OwnerDataForm = new OwnerDataForm();
         private EnumForm m_EnumForm = new EnumForm();
+        private YesNoForm m_YesNoForm = new YesNoForm();
 
         public void Execute()
         {
@@ -36,11 +39,11 @@ namespace UI
                     case GarageMenuForm.eGarageMenuOption.CHANGE_REPAIR_STATUS_OF_SPECIFIC_VEHICLE:
                        ChangeRepairStatusOfSpecificVehicle();
                        break;
-                    case GarageMenuForm.eGarageMenuOption.FUEL_VEHICLE:
-                       FuelVehicle();
-                       break;
                     case GarageMenuForm.eGarageMenuOption.INFLATE_VEHICLE_TIRES_TO_MAX:
                        InflateVehicleTirexToMax();
+                       break;
+                    case GarageMenuForm.eGarageMenuOption.FUEL_VEHICLE:
+                       FuelVehicle();
                        break;
                     case GarageMenuForm.eGarageMenuOption.CHARGE_ELECTRIC_VEHICLE:
                        ChargeElectricVehicle();
@@ -68,6 +71,7 @@ namespace UI
             m_SpecificationForm.ResetForm();
             m_OwnerDataForm.ResetForm();
             m_EnumForm.ResetForm();
+            m_YesNoForm.ResetForm();
         }
 
         public void AddNewVehicle()
@@ -81,8 +85,8 @@ namespace UI
             try
             {
                 Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlate);
-                Console.WriteLine(String.Format("A {0} was found with this license plate number: {1}{2}Changed this vehicle status to repair in progress"), 
-                    foundVehicle.Specifications.VehicleType, foundVehicle.ModelName, Environment.NewLine);
+                Console.WriteLine(String.Format("A {0} was found with this license plate number: {1}Changed this vehicle status to repair in progress"), 
+                    foundVehicle.ModelName, Environment.NewLine);
                 m_Garage.SetVehicleRepairStatus(licensePlate, Vehicle.eRepairStatus.IN_PROGRESS);
             }
             catch (Exception ex)
@@ -100,11 +104,24 @@ namespace UI
         }
         public void DisplayLicensePlates()
         {
+            Vehicle.eRepairStatus? filterBy = null;
+            bool repairStatusFilterInput;
+
             Console.WriteLine("-- Display license plates option picked --");
+            repairStatusFilterInput = m_YesNoForm.DisplayAndGetResult("Would you like to filter by repair status? (y/n):");
+
+            if (repairStatusFilterInput == true)
+            {
+                filterBy = (Vehicle.eRepairStatus)m_EnumForm.DisplayAndGetResult("Please enter repair status to filter by:", typeof(Vehicle.eRepairStatus).GetEnumValues());
+            }
+
             Console.WriteLine("List of all license plates of vehicles currently in the garage:");
             foreach (string licensePlateNumber in m_Garage.GetLicensePlateNumbers())
             {
-                Console.WriteLine(licensePlateNumber);
+                if (repairStatusFilterInput == false || filterBy.Value == m_Garage.getVehicleByLicensePlateNumber(licensePlateNumber).RepairStatus)
+                {
+                    Console.WriteLine(licensePlateNumber);
+                }
             }
         }
         public void ChangeRepairStatusOfSpecificVehicle()
@@ -142,25 +159,114 @@ namespace UI
                 try
                 {
                     m_Garage.FuelVehicle(licensePlateNumber, fuelType, fuelAmountInLiters);
+                    Console.WriteLine("Succesfully added fuel to vehicle");
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
-
         }
         public void InflateVehicleTirexToMax()
         {
-
+            string licensePlateNumber;
+            Console.WriteLine("-- Inflate vehicle tires to max picked --");
+            licensePlateNumber = m_LicensePlateForm.DisplayAndGetResult();
+            try
+            {
+                m_Garage.InflateVehicleTiresToMaximumPressure(licensePlateNumber);
+                Console.WriteLine("Fully inflated wheels");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public void ChargeElectricVehicle()
         {
-
+            string licensePlateNumber;
+            float chargeAmountInMinutes;
+            Console.WriteLine("-- Charge electric vehicle picked --");
+            licensePlateNumber = m_LicensePlateForm.DisplayAndGetResult();
+            Console.WriteLine("Please enter amount of minutes to charge:");
+            if (float.TryParse(Console.ReadLine(), out chargeAmountInMinutes))
+            {
+                try
+                {
+                    m_Garage.ChargeVehicle(licensePlateNumber, chargeAmountInMinutes);
+                    Console.WriteLine("Vehicle charged successfully");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
         public void DisplayAllInfoAboutSpecificVehicle()
         {
+            string licensePlateNumber = m_LicensePlateForm.DisplayAndGetResult();
+            try
+            {
+                Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlateNumber);
+                Console.WriteLine(String.Format(@"Model name: {0}
+Owner name: {1}
+Repair status: {2}
+Wheels:
+{3}
+Energy:
+{4}
+Specifications:
+{5}
+"), foundVehicle.ModelName, foundVehicle.OwnerData.Name, foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
+getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehicle)
+);
+                //foundVehicle.Specifications.VehicleType
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
+        private string getWheelsInfoAsString(Vehicle i_Vehicle)
+        {
+            return String.Empty;
+        }
+        private string getEnergySourceInfoAsString(Vehicle i_Vehicle)
+        {
+            GasolineFueledVehicle gasolineFueledVehicle = i_Vehicle as GasolineFueledVehicle;
+            ElectricVehicle electricVehicle;
+            string res;
+            if (ReferenceEquals(gasolineFueledVehicle, null) == false)
+            {
+                res = String.Format("Fuel Type: {0}{1}Current fuel amount in liters: {2}",
+                    gasolineFueledVehicle.FuelType.ToString(), Environment.NewLine, gasolineFueledVehicle.CurrentFuelAmountInLiters);
+            }
+            else
+            {
+                electricVehicle = i_Vehicle as ElectricVehicle;
+                res = String.Format("Remaining battery time in hours: {0}", electricVehicle.RemainingBatteryTimeInHours);
+            }
+
+            return res;
+        }
+
+        private string getSpecificiationsAsString(Vehicle i_Vehicle)
+        {
+            StringBuilder res = new StringBuilder();
+            Type currentSpecificationType = (i_Vehicle.Specifications).GetType();
+            FieldInfo[] fieldsList = (FieldInfo[])currentSpecificationType.GetRuntimeFields();
+            string nameOfField;
+            object valueOfField;
+
+            foreach (FieldInfo currentField in fieldsList)
+            {
+                nameOfField = currentField.Name.Substring(2, currentField.Name.Length - 2);
+                valueOfField = currentField.GetValue(i_Vehicle.Specifications).ToString();
+                res.Append(string.Format("{0}: {1}{2}", nameOfField, valueOfField, Environment.NewLine));
+            }
+
+            return res.ToString();
         }
     }
 }

@@ -6,9 +6,9 @@ namespace UI
 {
     internal class SpecificationForm
     {
-        private static EnumForm m_EnumForm = new EnumForm();
+        private YesNoForm m_YesNoForm = new YesNoForm();
+        private EnumForm m_EnumForm = new EnumForm();
         private const string k_SpecificationsNotFilledYetErrorMessage = "Specifications are not filled yet";
-        private string m_Input;
         private Specifications m_Result = null;
 
         public Specifications Result
@@ -56,7 +56,7 @@ namespace UI
         // The paramater i_SpecificationsList is from the problem world and it contains in each index the FieldName that needs to be field and its type
         // Creating list of objects from the solution world, so that's why both lists are same size
         // For every index in i_SpecificationList[index] there's the corresponding value that the user filled in res[index]
-        public static List<object> readAndAskUserForInputFromSpecificationsList(List<VehicleFactory.SpecificationStruct> i_SpecificationsList)
+        private List<object> readAndAskUserForInputFromSpecificationsList(List<VehicleFactory.SpecificationStruct> i_SpecificationsList)
         {
             List<object> res = new List<object>(i_SpecificationsList.Count);
             foreach (VehicleFactory.SpecificationStruct specification in i_SpecificationsList)
@@ -76,9 +76,7 @@ namespace UI
                             res.Add(float.Parse(Console.ReadLine()));
                             break;
                         case ("Boolean"):
-                            Console.WriteLine(String.Format("Enter y/n to select {0}", specification.m_NameOfField));
-                            string input = Console.ReadLine();
-                            res.Add(input.ToLower() == "y" ? true : false);
+                            res.Add(m_YesNoForm.DisplayAndGetResult(String.Format("Enter y/n to select {0}", specification.m_NameOfField)));
                             break;
                         default:
                             Console.WriteLine(String.Format("Enter a string to select {0}", specification.m_NameOfField));
