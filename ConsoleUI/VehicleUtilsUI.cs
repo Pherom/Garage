@@ -7,7 +7,9 @@ namespace UI
 {
     internal class VehicleUtilsUI
     {
-        // The paramater i_SpecificationsList is from the problem world
+        public static EnumForm enumForm = new EnumForm();
+
+        // The paramater i_SpecificationsList is from the problem world and it contains in each index the FieldName that needs to be field and its type
         // Creating list of objects from the solution world, so that's why both lists are same size
         // For every index in i_SpecificationList[index] there's the corresponding value that the user filled in res[index]
         public static List<object> readAndAskUserForInputFromSpecificationsList(List<VehicleFactory.SpecificationStruct> i_SpecificationsList)
@@ -15,43 +17,34 @@ namespace UI
             List<object> res = new List<object>(i_SpecificationsList.Count);
             foreach (VehicleFactory.SpecificationStruct specification in i_SpecificationsList)
             {
-                Console.WriteLine(String.Format("Enter a number to select {0}", specification.m_NameOfField));
-                switch (specification.m_ValueType.BaseType.Name)
+                if (specification.m_ValueType.IsPrimitive == true)
                 {
-                    case ("Enum"):
-                        Array arrayOfEnumValues = specification.m_ValueType.GetEnumValues();
-                        // Need to create here instead enum form File that returns the picked enum value instead of all this:
-                        int counter = 0;
-                        foreach (object enumValue in arrayOfEnumValues)
-                        {
-                            counter++;
-                            Console.WriteLine(String.Format("{0}. {1}", counter, enumValue));
-                        }
-                        int input = int.Parse(Console.ReadLine());
-
-                        // Getting the proper enum value and adding to the list
-                        counter = 0;
-                        foreach (object enumValue in arrayOfEnumValues)
-                        {
-                            counter++;
-                            if (input == counter)
-                            {
-                                res.Add(enumValue);
-                                break;
-                            }
-                        }
-
-                        break;
-                    case ("Int32"):
-                        res.Add(int.Parse(Console.ReadLine()));
-                        break;
-                    case ("Single"):
-                        res.Add(float.Parse(Console.ReadLine()));
-                        break;
-                    default:
-                        res.Add(Console.ReadLine());
-                        break;
+                    switch (specification.m_ValueType.Name)
+                    {
+                        case ("Int32"):
+                            Console.WriteLine(String.Format("Enter an integer to select {0}", specification.m_NameOfField));
+                            // Do here int form with tryparse
+                            res.Add(int.Parse(Console.ReadLine()));
+                            break;
+                        case ("Single"):
+                            Console.WriteLine(String.Format("Enter a float number to select {0}", specification.m_NameOfField));
+                            // Do here float form with tryparse
+                            res.Add(float.Parse(Console.ReadLine()));
+                            break;
+                        default:
+                            Console.WriteLine(String.Format("Enter a string to select {0}", specification.m_NameOfField));
+                            res.Add(Console.ReadLine());
+                            break;
+                    }
                 }
+                else if (specification.m_ValueType.BaseType.Name == "Enum")
+                {
+                    Array arrayOfEnumValues = specification.m_ValueType.GetEnumValues();
+                    string messageToShowForEnumForm = String.Format("Enter a number to select {0}", specification.m_NameOfField);
+                    res.Add(enumForm.DisplayAndGetResult(messageToShowForEnumForm, arrayOfEnumValues));
+                    enumForm.ResetForm();
+                }
+                
             }
 
             return res;

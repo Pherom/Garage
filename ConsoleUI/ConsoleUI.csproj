@@ -42,9 +42,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumForm.cs" />
     <Compile Include="GarageMenuExecuterUI.cs" />
     <Compile Include="GarageMenuForm.cs" />
     <Compile Include="LicensePlateForm.cs" />
+    <Compile Include="OwnerDataForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RemainingEnergyOrFuelForm.cs" />
     <Compile Include="VehicleTypeForm.cs" />

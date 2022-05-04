@@ -32,22 +32,22 @@ namespace Engine
             return true;
         }
 
-        public static void ValidateValueIsInRange(float i_Value, float i_Max)
+        public static void ValidateValueIsInRange(float i_Value, float i_Min, float i_Max)
         {
-            if (i_Value < 0 || i_Value > i_Max)
+            if (i_Value < i_Min || i_Value > i_Max)
             {
-                throw new ValueOutOfRangeException(0, i_Max);
+                throw new ValueOutOfRangeException(i_Min, i_Max);
             }
         }
 
         public static void ValidateTirePressureForThisVehicle(float i_CurrentTirePressure, float i_MaxTirePressure)
         {
-            ValidateValueIsInRange(i_CurrentTirePressure, i_MaxTirePressure);
+            ValidateValueIsInRange(i_CurrentTirePressure, 0, i_MaxTirePressure);
         }
 
         public static void ValidateEnergyForSpecificVehicle(float i_CurrentEnergy, float i_MaxEnergy)
         {
-            ValidateValueIsInRange(i_CurrentEnergy, i_MaxEnergy);
+            ValidateValueIsInRange(i_CurrentEnergy, 0, i_MaxEnergy);
         }
 
         public static List<VehicleFactory.SpecificationStruct> getSpecificationsFieldsListBasedOnTypeOfVehicle(Type i_TypeOfSpecificSpecifiationVehicle)

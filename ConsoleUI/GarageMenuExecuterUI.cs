@@ -7,12 +7,14 @@ namespace UI
 
     internal class GarageMenuExecuterUI
     {
-        Garage m_Garage = new Garage();
-        VehicleFactory m_VehicleFactory = new VehicleFactory();
-        VehicleTypeForm m_VehicleTypeForm = new VehicleTypeForm();
-        LicensePlateForm m_LicensePlateForm = new LicensePlateForm();
-        WheelsForm m_WheelsForm = new WheelsForm();
-        RemainingEnergyOrFuelForm m_RemainingEnergyOrFuelForm = new RemainingEnergyOrFuelForm();
+        private Garage m_Garage = new Garage();
+        private VehicleFactory m_VehicleFactory = new VehicleFactory();
+        private VehicleTypeForm m_VehicleTypeForm = new VehicleTypeForm();
+        private LicensePlateForm m_LicensePlateForm = new LicensePlateForm();
+        private WheelsForm m_WheelsForm = new WheelsForm();
+        private RemainingEnergyOrFuelForm m_RemainingEnergyOrFuelForm = new RemainingEnergyOrFuelForm();
+        private OwnerDataForm m_OwnerDataForm = new OwnerDataForm();
+        private EnumForm m_EnumForm = new EnumForm();
 
         public void Execute(GarageMenuForm.eGarageMenuOption i_OptionPicked)
         {
@@ -63,9 +65,12 @@ namespace UI
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
                 remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
                 List<object> specifications = VehicleUtilsUI.readAndAskUserForInputFromSpecificationsList(vehiclePicked.m_SpecificationsStruct);
+                Vehicle.VehicleOwnerData ownerData = m_OwnerDataForm.DisplayAndGetResult();
+                string messageToShowForRepairStatusEnumForm = "Enter a number to select repair status:";
+                Vehicle.eRepairStatus m_RepairStatus = (Vehicle.eRepairStatus)m_EnumForm.DisplayAndGetResult(messageToShowForRepairStatusEnumForm, typeof(Vehicle.eRepairStatus).GetEnumValues());
+
+
                 int x = 5;
-
-
                 // Call to factory add new vehicle
                 //Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);
                 //getOrAddVehicle();

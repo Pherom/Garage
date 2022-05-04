@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine
 {
@@ -54,7 +51,7 @@ namespace Engine
                     throw new ArgumentException(k_PhoneNumberExceptionMessage);
                 }
 
-                if (!validatePhoneNumber(i_PhoneNumber))
+                if (validatePhoneNumber(i_PhoneNumber) == false)
                 {
                     throw new FormatException(k_InvalidPhoneNumberExceptionMessage);
                 }
@@ -66,20 +63,37 @@ namespace Engine
             private bool validatePhoneNumber(string i_PhoneNumber)
             {
                 bool valid = true;
-                int digitCount = 0;
+                string phoneNumberWithoutWhitespaces = i_PhoneNumber.Replace(" ", string.Empty);
+                int digitCounter = 0;
+                int hyphenCounter = 0;
 
-                foreach (char character in i_PhoneNumber)
+                foreach (char character in phoneNumberWithoutWhitespaces)
                 {
                     if (char.IsDigit(character))
-                        digitCount++;
-                    else if (character != '-')
+                    {
+                        digitCounter++;
+                        if (digitCounter == 11)
+                        {
+                            break;
+                        }
+                    }
+                    else if (character == '-')
+                    {
+                        hyphenCounter++;
+                        if (hyphenCounter == 2)
+                        {
+                            break;
+                        }
+                    }
+                    else
                     {
                         valid = false;
                         break;
                     }
                 }
 
-                if ( valid == true && (digitCount > 10 || digitCount < 9) )
+                if (valid == true &&
+                    (digitCounter == 10 && (hyphenCounter == 0 || hyphenCounter == 1 && phoneNumberWithoutWhitespaces.IndexOf('-') == 3)) == false)
                 {
                     valid = false;
                 }

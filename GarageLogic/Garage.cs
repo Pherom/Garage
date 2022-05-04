@@ -27,6 +27,7 @@ namespace Engine
         {
             r_VehicleTypesList = VehicleUtils.initVehicleTypeListFromClassVehicleTypes();
         }
+
         public Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
         {
             Vehicle foundVehicle = null;
