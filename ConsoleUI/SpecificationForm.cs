@@ -75,6 +75,11 @@ namespace UI
                             // Do here float form with tryparse
                             res.Add(float.Parse(Console.ReadLine()));
                             break;
+                        case ("Boolean"):
+                            Console.WriteLine(String.Format("Enter y/n to select {0}", specification.m_NameOfField));
+                            string input = Console.ReadLine();
+                            res.Add(input.ToLower() == "y" ? true : false);
+                            break;
                         default:
                             Console.WriteLine(String.Format("Enter a string to select {0}", specification.m_NameOfField));
                             res.Add(Console.ReadLine());

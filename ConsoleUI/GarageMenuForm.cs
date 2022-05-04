@@ -14,7 +14,8 @@ namespace UI
             FUEL_VEHICLE,
             INFLATE_VEHICLE_TIRES_TO_MAX,
             CHARGE_ELECTRIC_VEHICLE,
-            DISPLAY_ALL_INFORMATION_ABOUT_VEHICLE
+            DISPLAY_ALL_INFORMATION_ABOUT_VEHICLE,
+            EXIT
         }
 
         private readonly int r_MaxGarageMenuOption = Enum.GetNames(typeof(eGarageMenuOption)).Length;
@@ -51,7 +52,8 @@ Pick one of the following options:
 4. Inflate vehicle tires to maximum pressure
 5. Fuel vehicle
 6. Charge electric vehicle
-7. Display all available information about specific vehicle according to license plate"));
+7. Display all available information about specific vehicle according to license plate
+8. Exit menu"));
                     validIntEntered = int.TryParse(Console.ReadLine(), out m_Input);
                     if (validIntEntered == false)
                     {
@@ -76,6 +78,11 @@ Pick one of the following options:
         {
             Display();
             return m_Result.Value;
+        }
+
+        public void ResetForm()
+        {
+            m_Result = null;
         }
     }
 }

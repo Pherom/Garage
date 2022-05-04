@@ -38,7 +38,7 @@ namespace GarageLogic
                 }
             }
 
-            if (foundVehicle == null)
+            if (ReferenceEquals(foundVehicle, null))
             {
                 throw new NoSuchVehicleException();
             }
@@ -59,7 +59,7 @@ namespace GarageLogic
                 }
             }
 
-            if (foundOrAddedVehicle == null)
+            if (ReferenceEquals(foundOrAddedVehicle, null))
             {
                 foundOrAddedVehicle = i_Vehicle;
                 m_Vehicles.Add(foundOrAddedVehicle);
@@ -68,18 +68,17 @@ namespace GarageLogic
             return foundOrAddedVehicle;
         }
 
-        public Vehicle AddVehicle(Vehicle i_Vehicle)
+        public void AddVehicle(Vehicle i_Vehicle)
         {
             Vehicle addedVehicle;
 
-            if (i_Vehicle == null)
+            if (ReferenceEquals(i_Vehicle, null))
             {
                 throw new ArgumentNullException(nameof(i_Vehicle));
             }
 
             addedVehicle = getOrAddVehicle(i_Vehicle);
             addedVehicle.RepairStatus = Vehicle.eRepairStatus.IN_PROGRESS;
-            return addedVehicle;
         }
 
         public List<string> GetLicensePlateNumbers()
