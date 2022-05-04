@@ -65,17 +65,15 @@ namespace UI
             catch (Exception ex)
             {
                 List<Vehicle.Wheel> wheels = m_WheelsForm.DisplayAndGetResult(vehiclePicked);
+                Console.WriteLine("Enter model name:");
                 modelName = Console.ReadLine();
                 remainingBatteryOrFuelTimeInHours = m_RemainingEnergyOrFuelForm.DisplayAndGetResult(vehiclePicked);
                 Specifications specifications = m_SpecificationForm.DisplayAndGetResult(vehiclePicked);
                 Vehicle.VehicleOwnerData ownerData = m_OwnerDataForm.DisplayAndGetResult();
-                string messageToShowForRepairStatusEnumForm = "Enter a number to select repair status:";
                 // Call to factory add new vehicle
                 m_VehicleFactory.createVehicle(vehiclePicked, modelName, licensePlate, wheels, ownerData, specifications, remainingBatteryOrFuelTimeInHours);
 
-                 int x = 5;
-                //Vehicle vehicleToAdd = m_VehicleFactory.createCar(licensePlate);
-                //getOrAddVehicle();
+                int x = 5;
             }
         }
         public void DisplayLicensePlates()
@@ -113,11 +111,10 @@ namespace UI
             float fuelAmountInLiters;
 
             Console.WriteLine("-- Fuel vehicle option picked --");
-            Console.WriteLine("Please enter license plate number:");
-            licensePlateNumber = Console.ReadLine();
+            licensePlateNumber = m_LicensePlateForm.DisplayAndGetResult();
             fuelType = (GasolineFueledVehicle.eFuelType)m_EnumForm.DisplayAndGetResult("Please enter fuel type:", typeof(GasolineFueledVehicle.eFuelType).GetEnumValues());
             Console.WriteLine("Please enter amount of fuel in liters:");
-            if(float.TryParse(Console.ReadLine(), out fuelAmountInLiters))
+            if (float.TryParse(Console.ReadLine(), out fuelAmountInLiters))
             {
                 try
                 {
