@@ -1,5 +1,5 @@
 ﻿using System;
-using Engine;
+using GarageLogic;
 
 namespace UI
 {
@@ -12,8 +12,8 @@ namespace UI
         public static void OpenGarage()
         {
             GarageMenuForm garageMenuForm = new GarageMenuForm();
-            GarageMenuExecuterUI garageMenuOptionExctuer = new GarageMenuExecuterUI();
-            garageMenuOptionExctuer.Execute(garageMenuForm.DisplayAndGetResult());
+            GarageMenuExecutorUI garageMenuOptionExecutor = new GarageMenuExecutorUI();
+            garageMenuOptionExecutor.Execute(garageMenuForm.DisplayAndGetResult());
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace GarageLogic
 {
-    internal abstract class ElectricVehicle : Vehicle
+    internal class ElectricVehicle : Vehicle
     {
         private readonly float m_MaxBatteryTimeInHours;
         private float m_RemainingBatteryTimeInHours;
@@ -19,13 +19,13 @@ namespace Engine
             }
         }
 
-        protected ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_MaxBatteryTimeInHours)
+        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_MaxBatteryTimeInHours)
             : this(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, i_MaxBatteryTimeInHours, i_MaxBatteryTimeInHours)
         {
 
         }
 
-        protected ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_MaxBatteryTimeInHours, float i_RemainingBatteryTimeInHours)
+        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_MaxBatteryTimeInHours, float i_RemainingBatteryTimeInHours)
             : base(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, 0)
         {
             if (i_MaxBatteryTimeInHours <= 0)

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Engine;
+using GarageLogic;
 
 namespace UI
 {           
 
-    internal class GarageMenuExecuterUI
+    internal class GarageMenuExecutorUI
     {
         private Garage m_Garage = new Garage();
         private VehicleFactory m_VehicleFactory = new VehicleFactory();
@@ -79,18 +79,54 @@ namespace UI
         }
         public void DisplayLicensePlates()
         {
-            Console.WriteLine("--Add a new vehicle picked--");
-            Console.WriteLine("List of all vehicles currently in the garage:");
-            //
+            Console.WriteLine("-- Display license plates option picked --");
+            Console.WriteLine("List of all license plates of vehicles currently in the garage:");
+            for(string licensePlateNumber in m_Garage.GetLicensePlateNumbers())
+            {
+                Console.WriteLine(licensePlateNumber);
+            }
         }
         public void ChangeRepairStatusOfSpecificVehicle()
         {
-            Console.WriteLine("-- Changing the hange the repair status of a specific vehicle");
-            Console.WriteLine("Please enter license plate ID");
+            string licensePlateNumber;
+            Vehicle.eRepairStatus repairStatus;
+
+            Console.WriteLine("-- Change repair status of specific vehicle option picked --");
+            Console.WriteLine("Please enter license plate number:");
+            licensePlateNumber = Console.ReadLine();
+            repairStatus = (Vehicle.eRepairStatus)m_EnumForm.DisplayAndGetResult("Please enter repair status to update to:", typeof(Vehicle.eRepairStatus).GetEnumValues());
+            try
+            {
+                m_Garage.SetVehicleRepairStatus(licensePlateNumber, repairStatus);
+            }
+            catch (NoSuchVehicleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void FuelVehicle()
         {
+            string licensePlateNumber;
+            GasolineFueledVehicle.eFuelType fuelType;
+            float fuelAmountInLiters;
+
+            Console.WriteLine("-- Fuel vehicle option picked --");
+            Console.WriteLine("Please enter license plate number:");
+            licensePlateNumber = Console.ReadLine();
+            fuelType = (GasolineFueledVehicle.eFuelType)m_EnumForm.DisplayAndGetResult("Please enter fuel type:", typeof(GasolineFueledVehicle.eFuelType).GetEnumValues());
+            Console.WriteLine("Please enter amount of fuel in liters:");
+            if(float.TryParse(Console.ReadLine(), out fuelAmountInLiters))
+            {
+                try
+                {
+                    m_Garage.FuelVehicle(licensePlateNumber, fuelType, fuelAmountInLiters);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
         }
         public void InflateVehicleTirexToMax()

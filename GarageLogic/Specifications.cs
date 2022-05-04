@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace GarageLogic
 {
     public abstract class Specifications
     {
@@ -18,7 +18,7 @@ namespace Engine
             }
         }
 
-        public Specifications(string i_VehicleType)
+        protected Specifications(string i_VehicleType)
         {
             m_VehicleType = i_VehicleType;
         }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace GarageLogic
 {
-    public abstract class GasolineFueledVehicle : Vehicle
+    public class GasolineFueledVehicle : Vehicle
     {
         public enum eFuelType
         {
@@ -44,14 +44,14 @@ namespace Engine
             }
         }
 
-        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData,
+        public GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData,
             Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters)
             : this(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, i_FuelType, i_FuelTankCapacityInLiters, i_FuelTankCapacityInLiters)
         {
 
         }
 
-        protected GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData,
+        public GasolineFueledVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData,
             Specifications i_Specifications, eFuelType i_FuelType, float i_FuelTankCapacityInLiters, float i_CurrentFuelAmountInLiters)
             : base(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, 0)
         {

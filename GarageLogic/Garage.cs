@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Engine
+namespace GarageLogic
 {
     public class Garage
     {
