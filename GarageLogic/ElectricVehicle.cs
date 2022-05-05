@@ -36,13 +36,15 @@ namespace GarageLogic
         public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, List<Wheel> i_Wheels, VehicleOwnerData i_OwnerData, Specifications i_Specifications, float i_MaxBatteryTimeInHours, float i_RemainingBatteryTimeInHours)
             : base(i_ModelName, i_LicensePlateNumber, i_Wheels, i_OwnerData, i_Specifications, 0)
         {
+            float addedBatteryInMinutes;
             if (i_MaxBatteryTimeInHours <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(i_MaxBatteryTimeInHours));
             }
 
+            addedBatteryInMinutes = i_RemainingBatteryTimeInHours * 60;
             m_MaxBatteryTimeInHours = i_MaxBatteryTimeInHours;
-            Charge(i_RemainingBatteryTimeInHours);
+            Charge(addedBatteryInMinutes);
         }
 
         public void Charge(float i_AddedBatteryTimeInMinutes)

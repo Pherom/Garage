@@ -100,6 +100,7 @@ namespace UI
                 // Call to factory add new vehicle
                 Vehicle vehicleToBeAdded = m_VehicleFactory.createVehicle(vehiclePicked, modelName, licensePlate, wheels, ownerData, specifications, remainingBatteryOrFuelTimeInHours);
                 m_Garage.AddVehicle(vehicleToBeAdded);
+                Console.WriteLine("Successfully added a new vehicle");
             }
         }
         public void DisplayLicensePlates()
@@ -208,18 +209,23 @@ namespace UI
             try
             {
                 Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlateNumber);
-                Console.WriteLine(String.Format(@"Model name: {0}
-Owner name: {1}
-Repair status: {2}
+                Console.WriteLine(String.Format(@"---------
+Vehicle type: {0}
+Model name: {1}
+Owner name: {2}
+Repair status: {3}
+
 Wheels:
-{3}
-Energy:
 {4}
-Specifications:
+Energy:
 {5}
-", foundVehicle.ModelName, foundVehicle.OwnerData.Name, foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
-getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehicle)
-));
+
+Specifications:
+{6}
+---------", foundVehicle.Specifications.VehicleType, foundVehicle.ModelName, foundVehicle.OwnerData.Name,
+            foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
+            getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehicle)
+            ));
                 //foundVehicle.Specifications.VehicleType
             }
             catch (Exception ex)
@@ -233,7 +239,7 @@ getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehic
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 1; i <= i_Vehicle.Wheels.Count; i++)
             {
-                stringBuilder.Append(String.Format("{1}Wheel #{0}:{1}Current tire pressure: {2}{1}Manufacturer: {3}",
+                stringBuilder.Append(String.Format("Wheel #{0}:{1}Current tire pressure: {2}{1}Manufacturer: {3}{1}",
                     i, Environment.NewLine, i_Vehicle.Wheels[i - 1].CurrentTirePressure, i_Vehicle.Wheels[i - 1].ManufacturerName));
             }
             return stringBuilder.ToString();
@@ -264,12 +270,19 @@ getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehic
             FieldInfo[] fieldsList = (FieldInfo[])currentSpecificationType.GetRuntimeFields();
             string nameOfField;
             object valueOfField;
+            int lastIndexOfNewLine;
 
             foreach (FieldInfo currentField in fieldsList)
             {
                 nameOfField = currentField.Name.Substring(2, currentField.Name.Length - 2);
                 valueOfField = currentField.GetValue(i_Vehicle.Specifications).ToString();
                 res.Append(string.Format("{0}: {1}{2}", nameOfField, valueOfField, Environment.NewLine));
+            }
+
+            lastIndexOfNewLine = res.ToString().LastIndexOf(Environment.NewLine);
+            if (lastIndexOfNewLine >= 0)
+            {
+                res.Remove(lastIndexOfNewLine, res.Length - lastIndexOfNewLine);
             }
 
             return res.ToString();
