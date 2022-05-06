@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GarageLogic
 {
-    public abstract class Vehicle
+    public class Vehicle
     {
         public class VehicleOwnerData
         {
