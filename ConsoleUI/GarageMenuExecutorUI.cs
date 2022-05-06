@@ -85,8 +85,8 @@ namespace UI
             try
             {
                 Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlate);
-                Console.WriteLine(String.Format("A {0} was found with this license plate number: {1}Changed this vehicle status to repair in progress"), 
-                    foundVehicle.ModelName, Environment.NewLine);
+                Console.WriteLine(String.Format("A {0}({1}) was found with this license plate number: {2}{3}Changed this vehicle status to repair in progress", 
+                    foundVehicle.ModelName, foundVehicle.Specifications.VehicleType, licensePlate, Environment.NewLine));
                 m_Garage.SetVehicleRepairStatus(licensePlate, Vehicle.eRepairStatus.IN_PROGRESS);
             }
             catch
