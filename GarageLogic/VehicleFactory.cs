@@ -8,13 +8,6 @@ namespace GarageLogic
 {
     public class VehicleFactory
     {
-        //public enum eVehicleType
-        //{
-        //    BIKE,
-        //    CAR,
-        //    TRUCK
-        //}
-
         public struct SpecificationStruct
         {
             public string m_NameOfField;

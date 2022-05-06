@@ -126,20 +126,6 @@ namespace GarageLogic
             }
 
             return typeOfVehiclesList;
-            //foreach (VehicleFactory.VehicleTypeStruct s in typeOfVehiclesList)
-            //{
-            //    Console.Write(s.m_Name);
-            //    Console.Write(s.m_WheelsNumber);
-            //    if (s.m_IsFueled == true)
-            //    {
-            //        Console.Write(s.m_FuelTankCapacityInLiters);
-            //    }
-            //    else
-            //    {
-            //        Console.Write(s.m_MaxBatteryTimeInHours);
-            //    }
-            //    Console.WriteLine();
-            //}
         }
     }
 }

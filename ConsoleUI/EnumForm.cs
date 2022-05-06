@@ -25,14 +25,14 @@ namespace UI
 
         public void Display(string i_MsgToShowBeforeForm, Array i_ArrayOfEnumValues)
         {
+            int counter = 0;
             bool validIntEntered = false;
             while (m_Result == null)
             {
                 try
                 {
                     Console.WriteLine(i_MsgToShowBeforeForm);
-                    // Need to create here instead enum form File that returns the picked enum value instead of all this:
-                    int counter = 0;
+                    counter = 0;
                     foreach (object enumValue in i_ArrayOfEnumValues)
                     {
                         counter++;

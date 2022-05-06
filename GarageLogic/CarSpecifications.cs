@@ -43,17 +43,5 @@ namespace GarageLogic
         }
 
         public CarSpecifications(string i_TypeOfVehicle) : base(i_TypeOfVehicle) { }
-
-        //public CarSpecifications(eColor i_Color, int i_DoorCount)
-        //    : base(VehicleFactory.eVehicleType.CAR)
-        //{
-        //    if (i_DoorCount < 2 || i_DoorCount > 5)
-        //    {
-        //        throw new ArgumentOutOfRangeException(nameof(i_DoorCount));
-        //    }
-
-        //    m_Color = i_Color;
-        //    m_DoorCount = i_DoorCount;
-        //}
     }
 }

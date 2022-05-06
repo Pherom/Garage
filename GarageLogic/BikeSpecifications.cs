@@ -47,17 +47,5 @@ namespace GarageLogic
         }
 
         public BikeSpecifications(string i_TypeOfVehicle) : base(i_TypeOfVehicle) { }
-
-        //public BikeSpecifications(eLicenseType i_LicenseType, int i_EngineCapacityInCC)
-        //    : base(VehicleFactory.eVehicleType.BIKE)
-        //{
-        //    if (i_EngineCapacityInCC <= 0)
-        //    {
-        //        throw new ArgumentOutOfRangeException(nameof(i_EngineCapacityInCC));
-        //    }
-
-        //    m_LicenseType = (eLicenseType)i_LicenseType;
-        //    m_EngineCapacityInCC = (int)i_EngineCapacityInCC;
-        //}
     }
 }

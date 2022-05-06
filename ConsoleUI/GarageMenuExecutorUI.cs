@@ -226,7 +226,6 @@ Specifications:
             foundVehicle.RepairStatus.ToString(), getWheelsInfoAsString(foundVehicle),
             getEnergySourceInfoAsString(foundVehicle), getSpecificiationsAsString(foundVehicle)
             ));
-                //foundVehicle.Specifications.VehicleType
             }
             catch (Exception ex)
             {
