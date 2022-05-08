@@ -84,7 +84,7 @@ namespace UI
 
             try
             {
-                Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlate);
+                Vehicle foundVehicle = m_Garage.GetVehicleByLicensePlateNumber(licensePlate);
                 Console.WriteLine(String.Format("A {0}({1}) was found with this license plate number: {2}{3}Changed this vehicle status to repair in progress", 
                     foundVehicle.ModelName, foundVehicle.Specifications.VehicleType, licensePlate, Environment.NewLine));
                 m_Garage.SetVehicleRepairStatus(licensePlate, Vehicle.eRepairStatus.IN_PROGRESS);
@@ -98,7 +98,7 @@ namespace UI
                 Specifications specifications = m_SpecificationForm.DisplayAndGetResult(vehiclePicked);
                 Vehicle.VehicleOwnerData ownerData = m_OwnerDataForm.DisplayAndGetResult();
                 // Call to factory add new vehicle
-                Vehicle vehicleToBeAdded = m_VehicleFactory.createVehicle(vehiclePicked, modelName, licensePlate, wheels, ownerData, specifications, remainingBatteryOrFuelTimeInHours);
+                Vehicle vehicleToBeAdded = m_VehicleFactory.CreateVehicle(vehiclePicked, modelName, licensePlate, wheels, ownerData, specifications, remainingBatteryOrFuelTimeInHours);
                 m_Garage.AddVehicle(vehicleToBeAdded);
                 Console.WriteLine("Successfully added a new vehicle");
             }
@@ -119,7 +119,7 @@ namespace UI
             Console.WriteLine("List of all license plates of vehicles currently in the garage:");
             foreach (string licensePlateNumber in m_Garage.GetLicensePlateNumbers())
             {
-                if (repairStatusFilterInput == false || filterBy.Value == m_Garage.getVehicleByLicensePlateNumber(licensePlateNumber).RepairStatus)
+                if (repairStatusFilterInput == false || filterBy.Value == m_Garage.GetVehicleByLicensePlateNumber(licensePlateNumber).RepairStatus)
                 {
                     Console.WriteLine(licensePlateNumber);
                 }
@@ -208,7 +208,7 @@ namespace UI
             string licensePlateNumber = m_LicensePlateForm.DisplayAndGetResult();
             try
             {
-                Vehicle foundVehicle = m_Garage.getVehicleByLicensePlateNumber(licensePlateNumber);
+                Vehicle foundVehicle = m_Garage.GetVehicleByLicensePlateNumber(licensePlateNumber);
                 Console.WriteLine(String.Format(@"---------
 Vehicle type: {0}
 Model name: {1}

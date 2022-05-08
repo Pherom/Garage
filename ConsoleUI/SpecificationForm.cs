@@ -30,8 +30,8 @@ namespace UI
             {
                 try
                 {
-                    List<object> specificationsAnswers = readAndAskUserForInputFromSpecificationsList(i_VehiclePicked.m_SpecificationsStruct);
-                    Specifications specifications = (Specifications)Activator.CreateInstance(i_VehiclePicked.m_SpecificationObjectType, VehicleTypeForm.getProperVehicleName(i_VehiclePicked.m_Name));
+                    List<object> specificationsAnswers = readAndAskUserForInputFromSpecificationsList(i_VehiclePicked.m_SpecificationStructList);
+                    Specifications specifications = (Specifications)Activator.CreateInstance(i_VehiclePicked.m_SpecificationType, VehicleTypeForm.getProperVehicleName(i_VehiclePicked.m_Name));
                     specifications.InitSpecifications(specificationsAnswers);
                     m_Result = specifications;
                 }

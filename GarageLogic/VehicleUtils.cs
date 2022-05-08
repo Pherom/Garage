@@ -50,7 +50,7 @@ namespace GarageLogic
             ValidateValueIsInRange(i_CurrentEnergy, 0, i_MaxEnergy);
         }
 
-        public static List<VehicleFactory.SpecificationStruct> getSpecificationsFieldsListBasedOnTypeOfVehicle(Type i_TypeOfSpecificSpecifiationVehicle)
+        public static List<VehicleFactory.SpecificationStruct> GetSpecificationsFieldsListBasedOnTypeOfVehicle(Type i_TypeOfSpecificSpecifiationVehicle)
         {
             FieldInfo[] fieldsList = (FieldInfo[])i_TypeOfSpecificSpecifiationVehicle.GetRuntimeFields();
             List<VehicleFactory.SpecificationStruct> res = new List<VehicleFactory.SpecificationStruct>(fieldsList.Length); // Number of specifications
@@ -66,7 +66,7 @@ namespace GarageLogic
             return res;
         }
 
-        public static List<VehicleFactory.VehicleTypeStruct> initVehicleTypeListFromClassVehicleTypes()
+        public static List<VehicleFactory.VehicleTypeStruct> InitVehicleTypeListFromClassVehicleTypes()
         {
             List<VehicleFactory.VehicleTypeStruct> typeOfVehiclesList = new List<VehicleFactory.VehicleTypeStruct>();
             VehicleFactory.VehicleTypeStruct specificVehicle;
@@ -98,8 +98,8 @@ namespace GarageLogic
                         }
                         else if (currentField.FieldType.Name == "Type")
                         {
-                            specificVehicle.m_SpecificationObjectType = (Type)valueOfProperty;
-                            specificVehicle.m_SpecificationsStruct = getSpecificationsFieldsListBasedOnTypeOfVehicle(specificVehicle.m_SpecificationObjectType);
+                            specificVehicle.m_SpecificationType = (Type)valueOfProperty;
+                            specificVehicle.m_SpecificationStructList = GetSpecificationsFieldsListBasedOnTypeOfVehicle(specificVehicle.m_SpecificationType);
                         }
                     }
 
@@ -120,7 +120,7 @@ namespace GarageLogic
                         }
                     }
 
-                    specificVehicle.m_IsFueled = energySystem.Name.ToUpper() == "FUELED" ? true : false;
+                    specificVehicle.m_IsGasolineFueledVehicle = energySystem.Name.ToUpper() == "FUELED" ? true : false;
                     typeOfVehiclesList.Add(specificVehicle);
                 }
             }

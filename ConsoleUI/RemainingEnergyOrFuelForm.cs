@@ -55,9 +55,9 @@ namespace UI
         public string getFuelTypeIfUsingFuelAndNotBattery(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
             string res;
-            if (i_VehiclePicked.m_IsFueled == true)
+            if (i_VehiclePicked.m_IsGasolineFueledVehicle == true)
             {
-                res = i_VehiclePicked.m_CurrentFuelType.ToString();
+                res = i_VehiclePicked.m_FuelType.ToString();
             }
             else
             {
@@ -80,12 +80,12 @@ namespace UI
 
         private string getProperAnnotationBatteryOrFuel(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
-            return i_VehiclePicked.m_IsFueled == true ? "Fuel" : "Battery";
+            return i_VehiclePicked.m_IsGasolineFueledVehicle == true ? "Fuel" : "Battery";
         }
 
         private float getProperMaxBatteryOrFuel(VehicleFactory.VehicleTypeStruct i_VehiclePicked)
         {
-            return (i_VehiclePicked.m_IsFueled == true) ? i_VehiclePicked.m_FuelTankCapacityInLiters : i_VehiclePicked.m_MaxBatteryTimeInHours;
+            return (i_VehiclePicked.m_IsGasolineFueledVehicle == true) ? i_VehiclePicked.m_FuelTankCapacityInLiters : i_VehiclePicked.m_MaxBatteryTimeInHours;
         }
     }
 }

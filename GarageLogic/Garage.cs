@@ -22,10 +22,10 @@ namespace GarageLogic
 
         public Garage()
         {
-            r_VehicleTypesList = VehicleUtils.initVehicleTypeListFromClassVehicleTypes();
+            r_VehicleTypesList = VehicleUtils.InitVehicleTypeListFromClassVehicleTypes();
         }
 
-        public Vehicle getVehicleByLicensePlateNumber(string i_LicensePlateNumber)
+        public Vehicle GetVehicleByLicensePlateNumber(string i_LicensePlateNumber)
         {
             Vehicle foundVehicle = null;
 
@@ -114,7 +114,7 @@ namespace GarageLogic
             {
                 throw new ArgumentNullException(nameof(i_LicensePlateNumber));
             }
-            getVehicleByLicensePlateNumber(i_LicensePlateNumber).RepairStatus = i_NewRepairStatus;
+            GetVehicleByLicensePlateNumber(i_LicensePlateNumber).RepairStatus = i_NewRepairStatus;
         }
 
         public void InflateVehicleTiresToMaximumPressure(string i_LicensePlateNumber)
@@ -123,7 +123,7 @@ namespace GarageLogic
             {
                 throw new ArgumentNullException(i_LicensePlateNumber);
             }
-            getVehicleByLicensePlateNumber(i_LicensePlateNumber).InflateAllTiresToMaximumPressure();
+            GetVehicleByLicensePlateNumber(i_LicensePlateNumber).InflateAllTiresToMaximumPressure();
         }
 
         public void FuelVehicle(string i_LicensePlateNumber, GasolineFueledVehicle.eFuelType i_FuelType, float i_AmountInLiters)
@@ -135,7 +135,7 @@ namespace GarageLogic
                 throw new ArgumentNullException(nameof(i_LicensePlateNumber));
             }
 
-            gasolineFueledVehicle = getVehicleByLicensePlateNumber(i_LicensePlateNumber) as GasolineFueledVehicle;
+            gasolineFueledVehicle = GetVehicleByLicensePlateNumber(i_LicensePlateNumber) as GasolineFueledVehicle;
 
             if (ReferenceEquals(gasolineFueledVehicle, null))
             {
@@ -159,7 +159,7 @@ namespace GarageLogic
                 throw new ArgumentNullException(nameof(i_LicensePlateNumber));
             }
 
-            electricVehicle = getVehicleByLicensePlateNumber(i_LicensePlateNumber) as ElectricVehicle;
+            electricVehicle = GetVehicleByLicensePlateNumber(i_LicensePlateNumber) as ElectricVehicle;
 
             if (ReferenceEquals(electricVehicle, null))
             {

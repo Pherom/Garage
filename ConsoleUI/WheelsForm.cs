@@ -30,8 +30,8 @@ namespace UI
         {
             bool validFloatEntered = false;
             int counterSuccessfullyLoadedWheels = 0;
-            m_Result = new List<Vehicle.Wheel>(i_VehiclePicked.m_WheelsNumber);
-            while (counterSuccessfullyLoadedWheels < i_VehiclePicked.m_WheelsNumber)
+            m_Result = new List<Vehicle.Wheel>(i_VehiclePicked.m_WheelCount);
+            while (counterSuccessfullyLoadedWheels < i_VehiclePicked.m_WheelCount)
             {
                 try
                 {
@@ -51,13 +51,13 @@ namespace UI
                         bool wantsToApplyAllInfoOnAllWheels = m_YesNoForm.DisplayAndGetResult("Would you like to apply this data to all wheels? (y/n)");
                         if (wantsToApplyAllInfoOnAllWheels == true)
                         {
-                            for (int i = 0; i < i_VehiclePicked.m_WheelsNumber; i++)
+                            for (int i = 0; i < i_VehiclePicked.m_WheelCount; i++)
                             {
                                 m_Result.Add(new Vehicle.Wheel(m_ManufacturerName, m_CurrentTirePressure, i_VehiclePicked.m_MaxTirePressure));
                                 counterSuccessfullyLoadedWheels++;
                             }
 
-                            Console.WriteLine(string.Format("Wheel data successfuly applied to all {0} wheels", i_VehiclePicked.m_WheelsNumber));
+                            Console.WriteLine(string.Format("Wheel data successfuly applied to all {0} wheels", i_VehiclePicked.m_WheelCount));
                         }
                         else
                         {
