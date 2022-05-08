@@ -58,6 +58,7 @@ namespace UI
                             }
 
                             Console.WriteLine(string.Format("Wheel data successfuly applied to all {0} wheels", i_VehiclePicked.m_WheelCount));
+                            m_YesNoForm.ResetForm();
                         }
                         else
                         {

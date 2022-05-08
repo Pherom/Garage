@@ -328,7 +328,7 @@ namespace GarageLogic
             bool equals = false;
             Vehicle vehicleToCompareWith = i_ToCompareWith as Vehicle;
 
-            if (vehicleToCompareWith != null)
+            if (ReferenceEquals(vehicleToCompareWith, null) == false)
             {
                 equals = m_LicensePlateNumber.Equals(vehicleToCompareWith.LicensePlateNumber);
             }

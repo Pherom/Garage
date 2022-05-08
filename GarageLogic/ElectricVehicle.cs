@@ -5,6 +5,7 @@ namespace GarageLogic
 {
     public class ElectricVehicle : Vehicle
     {
+        private const string k_ElectricVehicleIsAlreadyFullyChargedExceptionMessage = "Vehicle is already fully charged";
         private readonly float m_MaxBatteryTimeInHours;
         private float m_RemainingBatteryTimeInHours;
 
@@ -49,7 +50,14 @@ namespace GarageLogic
             float addedBatteryTimeInHours = (i_AddedBatteryTimeInMinutes / 60);
             if (addedBatteryTimeInHours < 0 || addedBatteryTimeInHours > m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours)
             {
-                throw new ValueOutOfRangeException(0, m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours);
+                if (m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours == 0)
+                {
+                    throw new InvalidOperationException(k_ElectricVehicleIsAlreadyFullyChargedExceptionMessage);
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, m_MaxBatteryTimeInHours - m_RemainingBatteryTimeInHours);
+                }
             }
 
             m_RemainingBatteryTimeInHours += addedBatteryTimeInHours;

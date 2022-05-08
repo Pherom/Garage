@@ -5,6 +5,7 @@ namespace GarageLogic
 {
     public class GasolineFueledVehicle : Vehicle
     {
+        private const string k_GasolineFueledVehicleIsAlreadyFullyFueledExceptionMessage = "Vehicle is already fully fueled";
         public enum eFuelType
         {
             OCTAN95,
@@ -66,7 +67,14 @@ namespace GarageLogic
         {
             if (i_AddedFuelAmountInLiters < 0 || i_AddedFuelAmountInLiters > m_FuelTankCapacityInLiters - m_CurrentFuelAmountInLiters)
             {
-                throw new ValueOutOfRangeException(0, m_FuelTankCapacityInLiters - m_CurrentFuelAmountInLiters);
+                if (m_FuelTankCapacityInLiters - m_CurrentFuelAmountInLiters == 0)
+                {
+                    throw new InvalidOperationException(k_GasolineFueledVehicleIsAlreadyFullyFueledExceptionMessage);
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, m_FuelTankCapacityInLiters - m_CurrentFuelAmountInLiters);
+                }
             }
 
             m_CurrentFuelAmountInLiters += i_AddedFuelAmountInLiters;

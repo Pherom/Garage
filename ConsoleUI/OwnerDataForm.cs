@@ -53,6 +53,8 @@ namespace UI
 
         public void ResetForm()
         {
+            m_InputName = String.Empty;
+            m_InputPhoneNumber = String.Empty;
             m_Result = null;
         }
     }
